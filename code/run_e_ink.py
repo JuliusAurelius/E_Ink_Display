@@ -17,22 +17,24 @@ logging.basicConfig(level=logging.DEBUG)
 
 try:
     logging.info("epd7in5 Demo")
-    
+
     epd = epd7in5.EPD()
     logging.info("init and Clear")
     epd.init()
+    logging.info("init done")
     epd.Clear()
-    
+    logging.info("clear done")
+
     font24 = ImageFont.truetype(os.path.join(picdir, 'Font.ttc'), 24)
     font18 = ImageFont.truetype(os.path.join(picdir, 'Font.ttc'), 18)
-    
+
     # Drawing on the Horizontal image
     logging.info("1.Drawing on the Horizontal image...")
     Himage = Image.new('1', (epd.width, epd.height), 255)  # 255: clear the frame
     draw = ImageDraw.Draw(Himage)
     draw.text((10, 0), 'hello world', font = font24, fill = 0)
     draw.text((10, 20), '7.5inch e-Paper', font = font24, fill = 0)
-    draw.text((150, 0), u'微雪电子', font = font24, fill = 0)    
+    draw.text((150, 0), u'微雪电子', font = font24, fill = 0)
     draw.line((20, 50, 70, 100), fill = 0)
     draw.line((70, 50, 20, 100), fill = 0)
     draw.rectangle((20, 50, 70, 100), outline = 0)
@@ -43,7 +45,7 @@ try:
     draw.chord((200, 50, 250, 100), 0, 360, fill = 0)
     epd.display(epd.getbuffer(Himage))
     time.sleep(2)
-    
+
     # Drawing on the Vertical image
     logging.info("2.Drawing on the Vertical image...")
     Limage = Image.new('1', (epd.height, epd.width), 255)  # 255: clear the frame
@@ -61,12 +63,12 @@ try:
     draw.chord((70, 150, 120, 200), 0, 360, fill = 0)
     epd.display(epd.getbuffer(Limage))
     time.sleep(2)
-    
+
     logging.info("3.read bmp file")
     Himage = Image.open(os.path.join(picdir, '7in5.bmp'))
     epd.display(epd.getbuffer(Himage))
     time.sleep(2)
-    
+
     logging.info("4.read bmp file on window")
     Himage2 = Image.new('1', (epd.height, epd.width), 255)  # 255: clear the frame
     bmp = Image.open(os.path.join(picdir, '100x100.bmp'))
@@ -77,14 +79,14 @@ try:
     logging.info("Clear...")
     epd.init()
     epd.Clear()
-    
+
     logging.info("Goto Sleep...")
     epd.sleep()
-    
+
 except IOError as e:
     logging.info(e)
-    
-except KeyboardInterrupt:    
+
+except KeyboardInterrupt:
     logging.info("ctrl + c:")
     epd7in5.epdconfig.module_exit()
     exit()
