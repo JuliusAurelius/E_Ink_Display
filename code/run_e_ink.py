@@ -22,7 +22,7 @@ try:
     logging.info("init and Clear")
     epd.init()
     logging.info("init done")
-    epd.Clear()
+    # epd.Clear()
     logging.info("clear done")
 
     font24 = ImageFont.truetype(os.path.join(picdir, 'Font.ttc'), 24)
